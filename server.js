@@ -32,6 +32,22 @@ app.get('/account/:id', function(req, res){
     }
 })
 
+app.get('/search-account/:text', function(req, res){
+    var searchText = req.params.text;
+
+    var foundAccounts = accounts.filter(function(acc) {
+        return (
+        acc.firstname.includes(searchText) ||
+        acc.lastname.includes(searchText) ||
+        acc.email.includes(searchText))
+    });
+
+    if(foundAccounts) {
+        res.send(foundAccounts);
+    }else{
+        res.send('account not found');
+    }
+})
 
 app.listen(3000, function(){
     console.log('Example app listening on port 3000!')
